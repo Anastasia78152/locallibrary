@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Local Library Home</h1>
+
+<p>
+    Добро пожаловать в <em>LocalLibrary</em>, очень простой сайт-пример,
+    разработанный в качестве учебного примера в туториале Mozilla Developer Network.
+</p>
+
+<h2>Динамический контент</h2>
+
+<p>Библиотека имеет следующие записи:</p>
+<ul>
+    <li><strong>Книги:</strong> {{ num_books }}</li>
+    <li><strong>Копии книг:</strong> {{ num_instances }}</li>
+    <li><strong>Копии доступны:</strong> {{ num_instances_available }}</li>
+    <li><strong>Авторы:</strong> {{ num_authors }}</li>
+</ul>
+{% endblock %}

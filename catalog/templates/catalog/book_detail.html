@@ -1,0 +1,55 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>{{ book.title }}</h1>
+
+<p>
+    <strong>Автор:</strong>
+    <a href="{{ book.author.get_absolute_url }}">{{ book.author }}</a>
+</p>
+
+<p><strong>Описание:</strong> {{ book.summary }}</p>
+
+<p><strong>ISBN:</strong> {{ book.isbn }}</p>
+
+<p>
+    <strong>Жанр:</strong>
+    {% for genre in book.genre.all %}
+    {{ genre }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</p>
+
+<p><strong>Язык:</strong> {{ book.language }}</p>
+
+{% if user.is_authenticated and perms.catalog.can_mark_returned %}
+<h2>Управление экземплярами</h2>
+<ul>
+    {% for instance in book.bookinstance_set.all %}
+    <li class="{% if instance.is_overdue %}text-danger{% endif %}">
+        {{ instance.get_status_display }}
+        {% if instance.due_back %}— {{ instance.due_back }}{% endif %}
+        {% if instance.status == 'o' %}
+        — <a href="{% url 'renew-book-librarian' instance.id %}">Продлить</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<h2>Доступные экземпляры</h2>
+{% if book.bookinstance_set.all %}
+<ul>
+    {% for instance in book.bookinstance_set.all %}
+    <li>
+        <strong>Статус:</strong> {{ instance.get_status_display }}
+        {% if instance.due_back %}
+        <br><strong>Дата возврата:</strong> {{ instance.due_back }}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Нет доступных экземпляров.</p>
+{% endif %}
+{% endif %}
+
+{% endblock %}

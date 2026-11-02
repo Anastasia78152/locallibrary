@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Local Library{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="sidebar">
+        {% block sidebar %}
+        <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'books' %}">Все книги</a></li>
+                <li><a href="{% url 'authors' %}">Все авторы</a></li>
+
+                {% if user.is_authenticated %}
+                <li class="right"><span>Пользователь: {{ user.get_username }}</span></li>
+                <li class="right"><a href="{% url 'logout' %}">Выйти</a></li>
+                {% else %}
+                <li class="right"><a href="{% url 'login' %}">Войти</a></li>
+                {% endif %}
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

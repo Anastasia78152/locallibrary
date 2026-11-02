@@ -1,0 +1,28 @@
+# Виртуальное окружение
+env/
+venv/
+ENV/
+
+# База данных SQLite
+db.sqlite3
+db.sqlite3-journal
+
+# Временные файлы Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Настройки IDE
+.vscode/
+.idea/
+.vs/
+*.vsix
+*.suo
+*.slnx
+*.backup.json
+
+# OS файлы
+.DS_Store
+Thumbs.db
+desktop.ini
