@@ -1,8 +1,6 @@
 {% extends "base_generic.html" %}
-
 {% block content %}
 <h1>Список авторов</h1>
-
 {% if author_list %}
 <ul>
     {% for author in author_list %}
@@ -14,7 +12,6 @@
     </li>
     {% endfor %}
 </ul>
-
 {% else %}
 <p>В библиотеке нет авторов.</p>
 {% endif %}

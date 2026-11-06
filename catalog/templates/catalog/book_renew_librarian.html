@@ -1,14 +1,10 @@
 {% extends "base_generic.html" %}
-
 {% block content %}
-<h1>Продление срока: {{ bookinst.book.title }}</h1>
-<p>Текущая дата возврата: {{ bookinst.due_back }}</p>
-
+<h1>Продлить: {{ bookinst.book.title }}</h1>
+<p><strong>Читатель:</strong> {{ bookinst.borrower }}</p>
 <form action="" method="post">
     {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="Продлить" style="margin-top: 10px; padding: 5px 15px;">
+    <table>{{ form.as_table }}</table>
+    <input type="submit" value="Отправить" />
 </form>
 {% endblock %}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Local Library{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="sidebar">
+        {% block sidebar %}
+        <ul>
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            <li><a href="{% url 'books' %}">Все книги</a></li>
+            <li><a href="{% url 'authors' %}">Все авторы</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'my-borrowed' %}">Мои книги</a></li>
+            {% if perms.catalog.can_mark_returned %}
+            <li><a href="{% url 'all-borrowed' %}">Все взятые книги</a></li>
+            {% endif %}
+            <li class="right">
+                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Выйти</button>
+                </form>
+            </li>
+            {% else %}
+            <li class="right"><a href="{% url 'login' %}">Войти</a></li>
+            {% endif %}
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+
+        {% block pagination %}
+        {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">← Назад</a>
+                {% endif %}
+                <span class="page-current">
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Вперёд →</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+        {% endblock %}
+    </div>
+</body>
+</html>

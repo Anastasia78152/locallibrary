@@ -1,20 +1,18 @@
 {% extends "base_generic.html" %}
-
+{% block title %}Главная страница Local Library{% endblock %}
 {% block content %}
 <h1>Local Library Home</h1>
-
-<p>
-    Добро пожаловать в <em>LocalLibrary</em>, очень простой сайт-пример,
-    разработанный в качестве учебного примера в туториале Mozilla Developer Network.
-</p>
+<p>Добро пожаловать в <em>Local Library</em> — учебный сайт на Django.</p>
 
 <h2>Динамический контент</h2>
-
-<p>Библиотека имеет следующие записи:</p>
+<p>В библиотеке следующие количества записей:</p>
 <ul>
     <li><strong>Книги:</strong> {{ num_books }}</li>
-    <li><strong>Копии книг:</strong> {{ num_instances }}</li>
-    <li><strong>Копии доступны:</strong> {{ num_instances_available }}</li>
+    <li><strong>Экземпляры:</strong> {{ num_instances }}</li>
+    <li><strong>Доступные экземпляры:</strong> {{ num_instances_available }}</li>
     <li><strong>Авторы:</strong> {{ num_authors }}</li>
+    <li><strong>Жанры:</strong> {{ num_genres }}</li>
+    <li><strong>Книги со словом "Преступление":</strong> {{ num_books_with_word }}</li>
 </ul>
+<p>Вы посетили эту страницу {{ num_visits }} {% if num_visits == 1 %}раз{% else %}раза{% endif %}.</p>
 {% endblock %}
