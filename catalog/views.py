@@ -22,7 +22,7 @@ def index(request):
     request.session['num_visits'] = num_visits + 1
     return render(
         request,
-        'index.html',
+        'catalog/index.html',
         context={
             'num_books': num_books,
             'num_instances': num_instances,
